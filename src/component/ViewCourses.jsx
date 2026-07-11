@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import NavBar from './NavBar'
 
 const ViewCourses = () => {
 
@@ -26,7 +27,7 @@ const ViewCourses = () => {
         minHeight: "100vh"
     }}
 >
-
+    <NavBar/>
     <div className="container py-5">
 
         <h2
