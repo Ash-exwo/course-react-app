@@ -1,4 +1,5 @@
 import React from 'react'
+import NavBar from './NavBar'
 
 const InsertCourse = () => {
   return (
@@ -9,6 +10,7 @@ const InsertCourse = () => {
         minHeight: "100vh"
     }}
 >
+    <NavBar/>
     <div className="container py-5">
 
         <div className="row justify-content-center">
