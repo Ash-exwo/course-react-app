@@ -1,7 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from './NavBar'
+import axios from 'axios'
 
 const InsertCourse = () => {
+
+    const [input, changInput] = useState(
+        {
+            course_name: "",
+            duration: "",
+            fee: "",
+            mode: "",
+            trainer: ""
+        }
+    )
+
+    // used to store values in variable when user type in the insert form
+    const inputHandler = (event)=>{
+        changInput({...input,[event.target.name]:event.target.value})
+    }
+
+    //readvalue from form by setting name and value are set
+    const readValue = ()=>{
+        console.log(input)
+        axios.post("https://host-demo-app.onrender.com/api/add-course", input).then(
+            (response) =>{
+                console.log(response.data)
+                alert("Course Added Successfully")
+            }
+        ).catch(
+            (error)=>{
+                console.error("Error adding course: ", error)
+                alert("Failed to add course")
+            }
+        )
+    }
+
   return (
     <div>
         <div
@@ -50,6 +83,9 @@ const InsertCourse = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter Course Name"
+                                    name='course_name'
+                                    value={input.course_name}
+                                    onChange={inputHandler}
                                 />
 
                             </div>
@@ -65,6 +101,9 @@ const InsertCourse = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter Duration"
+                                    name='duration'
+                                    value={input.duration}
+                                    onChange={inputHandler}
                                 />
 
                             </div>
@@ -80,6 +119,9 @@ const InsertCourse = () => {
                                     type="number"
                                     className="form-control"
                                     placeholder="Enter Course Fee"
+                                    name='fee'
+                                    value={input.fee}
+                                    onChange={inputHandler}
                                 />
 
                             </div>
@@ -91,21 +133,21 @@ const InsertCourse = () => {
                                     Mode
                                 </label>
 
-                                <select className="form-select">
+                                <select className="form-select" name='mode' value={input.mode} onChange={inputHandler}>
 
-                                    <option selected>
+                                    <option selected value="">
                                         Select Mode
                                     </option>
 
-                                    <option>
+                                    <option value="Online">
                                         Online
                                     </option>
 
-                                    <option>
+                                    <option value="Offline">
                                         Offline
                                     </option>
 
-                                    <option>
+                                    <option value="Hybrid">
                                         Hybrid
                                     </option>
 
@@ -124,6 +166,9 @@ const InsertCourse = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter Trainer Name"
+                                    name='trainer'
+                                    value={input.trainer}
+                                    onChange={inputHandler}
                                 />
 
                             </div>
@@ -139,6 +184,7 @@ const InsertCourse = () => {
                                         border: "none",
                                         borderRadius: "10px"
                                     }}
+                                    onClick={readValue}
                                 >
                                     Add Course
                                 </button>
